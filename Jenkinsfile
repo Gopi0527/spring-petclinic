@@ -23,7 +23,7 @@ pipeline {
         }
         stage('reporting') {
             steps {
-                archiveArtifacts artifacts: '**/target/springpetclinic-*.jar'
+                archiveArtifacts artifacts: '**/target/spring-petclinic-*.jar'
                 junit testResults: '**/target/surefire-reports/TEST-*.xml'
             }
         }
