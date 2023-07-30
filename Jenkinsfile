@@ -9,9 +9,6 @@ pipeline {
     tools {
         jdk 'JDK-17'
     }
-     parameters { choice(name: 'GOAL',
-                choices: ['package', 'install', 'clean install','clean package'], description: 'Tis is maven goal') 
-    }
     stages {
         stage('vcs') {
             steps {
@@ -20,14 +17,30 @@ pipeline {
             }
         }
         stage('build and package') {
-            steps {
-                 sh script: "mvn ${params.GOAL}"
+           rtMavenDeployer (
+                    id: "SPC_DEPLOYER",
+                    serverId: "JFROG",
+                    releaseRepo: diviseema-libs-release-local,
+                    snapshotRepo: diviseema-libs-snapshot-local
+                )
+
+               stage ('Exec Maven') {
+                    steps {
+                        rtMavenRun (
+                            tool: MAVEN, // Tool name from Jenkins configuration
+                            pom: 'maven-examples/maven-example/pom.xml',
+                            goals: 'clean install',
+                            deployerId: diviseema-libs-release-local,
+                            snapshotRepo: diviseema-libs-snapshot-local
+                        )
+                    }
             }
-        }
-        stage('reporting') {
-            steps {
-                archiveArtifacts artifacts: '**/target/spring-petclinic-*.jar'
-                junit testResults: '**/target/surefire-reports/TEST-*.xml'
+                stage ('Publish build info') {
+                steps {
+                    rtPublishBuildInfo (
+                        serverId: "JFROG"
+                    )
+                }
             }
         }
     }
