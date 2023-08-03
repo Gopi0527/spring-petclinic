@@ -31,7 +31,7 @@ pipeline {
                     steps {
                         rtMavenRun (
                             tool: MAVEN, // Tool name from Jenkins configuration
-                            pom: 'maven-examples/maven-example/pom.xml',
+                            pom: 'pom.xml',
                             goals: 'clean install',
                             deployerId: "diviseema-libs-release-local",
                             project: "diviseema-libs-snapshot-local"
