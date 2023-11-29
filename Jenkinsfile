@@ -4,6 +4,9 @@ pipeline{
     // agent { label 'Label name' }
     triggers { 
         pollSCM('* * * * *') }
+     tools {
+        maven 'Maven_3.9' 
+    }
     stages{
         stage ('VCS'){
             steps{
