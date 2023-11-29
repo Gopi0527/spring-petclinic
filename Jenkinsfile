@@ -17,7 +17,7 @@ pipeline{
             }
             post {
                 success{
-                    archiveArtifacts archive: '**/spring-petclinic-*.jar'
+                    archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
                     junit testResults: '**/TEST-*.xml'
                     // mail subject: 'build stage success',
                     //      from: 'build@krishna.io',
