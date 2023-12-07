@@ -18,9 +18,8 @@ pipeline{
         stage ( 'build' ){
             steps{
                 sh 'mvn clean package'
-                withSonarQubeEnv(installationName:'SONAR_CLOUD',credentialsId:'SONAR_CLOUD'){
-                    sh 'mvn clean package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=spring-petclinic-gopi
- -Dsonar.projectKey=spring-petclinic-gopi_nop'
+                withSonarQubeEnv(installationName: 'SONAR_CLOUD', credentialsId: 'SONAR_CLOUD'){
+                    sh 'mvn clean package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=spring-petclinic-gopi -Dsonar.projectKey=spring-petclinic-gopi_nop'
                 }
             }
             post {
