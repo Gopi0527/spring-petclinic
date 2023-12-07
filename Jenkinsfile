@@ -1,11 +1,12 @@
 pipeline{
-    agent any
-    // #for multi agents 
-    // agent { label 'Label name' }
+    agent { label 'JDK-17' }
+    // agent any
+    // // #for multi agents 
+    // // agent { label 'Label name' }
     triggers { 
         pollSCM('* * * * *') }
      tools {
-        maven 'Maven_3.9' 
+        maven 'Maven-3.9' 
     }
     stages{
         stage ('VCS'){
